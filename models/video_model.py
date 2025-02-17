@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 class VideoModel(BaseModel):
     filename: str
@@ -6,3 +6,16 @@ class VideoModel(BaseModel):
     format_type: str
     size: int
     duration: int
+
+    @field_validator('filename')
+    def validar_filename(cls, value: str):
+        formatos_permitidos = ["mp4", "avi", "mkv", "mov", "flv"]
+        
+        if "." not in value:
+            raise ValueError("O nome do arquivo deve conter uma extensão válida.")
+
+        extensao = value.split('.')[-1].lower()
+        if extensao not in formatos_permitidos:
+            raise ValueError(f"Formato inválido. Use um dos seguintes: {', '.join(formatos_permitidos)}")
+        
+        return value
