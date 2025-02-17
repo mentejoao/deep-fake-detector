@@ -19,3 +19,11 @@ class VideoModel(BaseModel):
             raise ValueError(f"Formato inválido. Use um dos seguintes: {', '.join(formatos_permitidos)}")
         
         return value
+    
+    @field_validator('size')
+    def validar_size(cls, value: int):
+        max_size = 524288000  # 500 MB
+        if value > max_size:
+            raise ValueError("O tamanho do vídeo deve ser no máximo 500 MB.")
+        return value
+
