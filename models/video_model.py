@@ -26,4 +26,12 @@ class VideoModel(BaseModel):
         if value > max_size:
             raise ValueError("O tamanho do vídeo deve ser no máximo 500 MB.")
         return value
+    
+    @field_validator('duration')
+    def validar_duration(cls, value: int):
+        if value < 5:
+            raise ValueError("A duração do vídeo deve ser de pelo menos 5 segundos.")
+        if value > 7200:
+            raise ValueError("A duração do vídeo não pode ultrapassar 2 horas.")
+        return value
 
