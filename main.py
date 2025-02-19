@@ -1,9 +1,18 @@
 from fastapi import FastAPI
-from controllers.video_controller import router as video_router
+from controllers.video_controller_hf import get_router
+from transformers import AutoImageProcessor, Dinov2WithRegistersForImageClassification
+import torch
+
+# ref no momento: https://huggingface.co/WpythonW/dinoV2-deepfake-detector/tree/main
+
+image_processor = AutoImageProcessor.from_pretrained('WpythonW/dinoV2-deepfake-detector')
+model = Dinov2WithRegistersForImageClassification.from_pretrained("WpythonW/dinoV2-deepfake-detector")
+model.config.id2label = {0: "FAKE", 1: "REAL"}
+model.config.label2id = {"FAKE": 0, "REAL": 1}
 
 app = FastAPI()
 
-app.include_router(video_router)
+app.include_router(get_router(image_processor, model))
 
 # test route
 @app.get("/")
