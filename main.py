@@ -27,5 +27,9 @@ app.include_router(get_router(image_processor, model, s3_client))
 def home():
     return {"message": "API de Upload de Vídeos está funcionando!"}
 
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
 
 # ref no momento: https://huggingface.co/WpythonW/dinoV2-deepfake-detector/tree/main
