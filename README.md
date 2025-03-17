@@ -26,7 +26,7 @@
 
 ### 4. Code
 <p align="center">
-    <img src="reports/diagrama_casos_de_uso.jpg" alt="Diagrama de Caso de Uso" width="650"/>
+    <img src="images/diagrama_casos_de_uso.jpg" alt="Diagrama de Caso de Uso" width="650"/>
 <p>
 <p align="center">
     <img src="images/back_api_class_diagram.png" alt="Diagrama de Classe" width="650"/>
