@@ -1,18 +1,9 @@
-import boto3
-import os
 from fastapi import FastAPI
-from dotenv import load_dotenv
 from controllers.video_controller_s3 import get_router
 from transformers import ViTForImageClassification, ViTImageProcessor
+from services.s3_service import S3Client
 
-load_dotenv()
-
-s3_client = boto3.client(
-    "s3",
-    region_name=os.getenv("AWS_S3_REGION"),
-    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
-    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
-)
+s3_client = S3Client() 
 
 model = ViTForImageClassification.from_pretrained("prithivMLmods/Deep-Fake-Detector-v2-Model")
 image_processor = ViTImageProcessor.from_pretrained("prithivMLmods/Deep-Fake-Detector-v2-Model")
